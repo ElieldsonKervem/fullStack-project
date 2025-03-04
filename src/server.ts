@@ -1,12 +1,11 @@
 import express from 'express';
-import { categoriesRouter } from './routes/categories.routes';
+
 const app = express();
 const port: number = 3002;
-
+import {router} from './routes/index'
 
 app.use(express.json());
-
-app.use("/categories",categoriesRouter)
+app.use(router)
 
 app.listen(port, () => {
     console.log(`Projeto rodando na porta ${port}`);

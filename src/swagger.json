@@ -1,0 +1,195 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "CarProject API",
+      "version": "1.0.0",
+      "description": "Documentação da API para o CarProject"
+    },
+    "servers": [
+      {
+        "url": "http://localhost:3002",
+        "description": "Servidor de Desenvolvimento"
+      }
+    ],
+    "paths": {
+      "/categories": {
+        "get": {
+          "summary": "Lista todas as categorias",
+          "tags": ["Categories"],
+          "responses": {
+            "200": {
+              "description": "Uma lista de categorias",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Category"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Cria uma nova categoria",
+          "tags": ["Categories"],
+          "requestBody": {
+            "description": "Dados da categoria a ser criada",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CategoryInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Categoria criada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Category"
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "Categoria já existe"
+            }
+          }
+        }
+      },
+      "/specifications": {
+        "get": {
+          "summary": "Lista todas as specifications",
+          "tags": ["Specifications"],
+          "responses": {
+            "200": {
+              "description": "Uma lista de specifications",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/Specification"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "post": {
+          "summary": "Cria uma nova specification",
+          "tags": ["Specifications"],
+          "requestBody": {
+            "description": "Dados da specification a ser criada",
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SpecificationInput"
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Specification criada com sucesso",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "$ref": "#/components/schemas/Specification"
+                  }
+                }
+              }
+            },
+            "409": {
+              "description": "Specification já existe"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "schemas": {
+        "Category": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "123e4567-e89b-12d3-a456-426614174000"
+            },
+            "name": {
+              "type": "string",
+              "example": "Eletric"
+            },
+            "description": {
+              "type": "string",
+              "example": "Carro Elétrico"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-01-01T00:00:00Z"
+            }
+          }
+        },
+        "CategoryInput": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Eletric"
+            },
+            "description": {
+              "type": "string",
+              "example": "Carro Elétrico"
+            }
+          },
+          "required": ["name", "description"]
+        },
+        "Specification": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "example": "123e4567-e89b-12d3-a456-426614174001"
+            },
+            "name": {
+              "type": "string",
+              "example": "Spec Example"
+            },
+            "description": {
+              "type": "string",
+              "example": "Detalhes da specification"
+            },
+            "created_at": {
+              "type": "string",
+              "format": "date-time",
+              "example": "2023-01-01T00:00:00Z"
+            }
+          }
+        },
+        "SpecificationInput": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string",
+              "example": "Spec Example"
+            },
+            "description": {
+              "type": "string",
+              "example": "Detalhes da specification"
+            }
+          },
+          "required": ["name", "description"]
+        }
+      }
+    }
+  }
+  

@@ -9,6 +9,7 @@ router.use('/categories',categoriesRouter)
 router.use('/specifications',specifationRouter) 
 router.use('/upload',fileRouter)
 router.use('/csvUpload',csvRouter)
+router.use('/import',csvRouter)
 export{router}
 
 //rota que gerencia todas as outras para deixar o server.js mais organizado

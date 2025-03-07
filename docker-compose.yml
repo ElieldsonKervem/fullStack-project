@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  app:
+    build: .
+    container_name: store
+    ports:
+      - "3002:3002"
+    volumes:
+      - .:/usr/app
+    working_dir: /usr/app
+    command: npm run dev
+    depends_on:
+      - postgres
+    environment:
+      DATABASE_URL: "postgresql://root:root@postgres:5432/storedb"
+
+  postgres:
+    image: postgres:latest
+    container_name: my_postgres
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: store
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+volumes:
+  pgdata:

@@ -8,7 +8,7 @@ export async function createSpecifications({id,name,description}:Omit<Specificat
         return { error: "Especificação já existe" };
      }
      const specification = await addSpecifications({
-        id, name, description,created_at:''
+        id, name, description,created_at: new Date()
      });
     
 

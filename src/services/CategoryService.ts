@@ -1,27 +1,17 @@
+import { Category } from '@prisma/client';
+import { addCategory, findCategoryByName, listCategories as listCategoriesRepo } from "../repositories/CategoryRepository";
 
-import Category from "../models/CategoryModel";
-import { addCategory,findCategoryByName,listCategories as listCategoriesRepo } from "../repositories/CategoryRepository"; 
+export async function createCategory({ id, name, description }: Omit<Category, 'created_at'>): Promise<{ error?: string, category?: Category }> {
+  const existingCategory = await findCategoryByName(name);
+  if (existingCategory) {
+    return { error: "Categoria já existe" };
+  }
 
-
-export function createCategory({ id, name, description }: Omit<Category, 'created_at'>): { error?: string, category?: Category } {
-    const existingCategory = findCategoryByName(name);
-    if (existingCategory) {
-      return { error: "Categoria já existe" };
-    }
-
-    const category: Category = {
-        id,
-        name,
-        description,
-        created_at: new Date().toISOString()
-      };
-
-    addCategory(category)
-
-    return {category}
-
+  const category = await addCategory({ id, name, description });
+  return { category };
 }
 
-export function listCategories():Category[]{
-    return listCategoriesRepo();    
+export async function listCategories(): Promise<Category[]> {
+  const categories = await listCategoriesRepo();
+  return categories;
 }

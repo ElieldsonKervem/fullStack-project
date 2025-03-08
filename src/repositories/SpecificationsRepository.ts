@@ -1,17 +1,22 @@
+import { Specifications, PrismaClient } from "@prisma/client";
+const prisma = new PrismaClient();
 
-import Specifications from "../models/SpecificationsModel"
-
-const specifications:Specifications[] = [];
-
-export function addSpefications(specifation:Specifications):void{
-    specifications.push(specifation)
-    return;
+export async function addSpecifications(specificationData: Specifications): Promise<Specifications> {
+    const createSpecification = await prisma.specifications.create({
+        data: {
+            ...specificationData,
+            created_at: new Date().toISOString(),
+        },
+    });
+    return createSpecification;
 }
-export function findSpecificationByName(name: string): Specifications | undefined {
-    return specifications.find(specifications => specifications.name === name);
-  }
- 
 
-export function listSpecification():Specifications[]{
-       return specifications;
+export async function findSpecificationByName(name: string): Promise<Specifications | null> {
+    return await prisma.specifications.findFirst({
+        where: { name },
+    });
+}
+
+export function listSpecifications(): Promise<Specifications[]> {
+    return prisma.specifications.findMany();
 }

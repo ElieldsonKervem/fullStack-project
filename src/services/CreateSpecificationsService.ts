@@ -1,19 +1,16 @@
-import Specifications from "../models/SpecificationsModel";
-import { addSpefications,findSpecificationByName,  listSpecification as listSpecificationRepo} from "../repositories/SpecificationsRepository";
+import { addSpecifications,findSpecificationByName,  listSpecifications as listSpecificationRepo} from "../repositories/SpecificationsRepository";
+import { Specifications } from "@prisma/client";
 
-export function createSpecifications({id,name,description}:Omit<Specifications,'created_at'>):{error?:string,specification?:Specifications}{
-     const existingSpecifications = findSpecificationByName(name)
+export async function createSpecifications({id,name,description}:Omit<Specifications,'created_at'>):Promise<{error?:string,specification?:Specifications}>{
+     const existingSpecifications =  await findSpecificationByName(name)
 
      if(existingSpecifications){
         return { error: "Especificação já existe" };
      }
-     const specification:Specifications = {
-        id,
-        name,
-        description,
-        created_at: new Date().toISOString()
-     }
-     addSpefications(specification);
+     const specification = await addSpecifications({
+        id, name, description,created_at:''
+     });
+    
 
      return {specification}
 

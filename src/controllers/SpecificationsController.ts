@@ -1,9 +1,9 @@
 import { Request, Response } from "express";
 import { createSpecifications,listSpecification } from "../services/CreateSpecificationsService";
 
-export function createSpecificationsController(request:Request,response:Response):void{
+export async function createSpecificationsController(request:Request,response:Response):Promise<void>{
      const {id,name,description} = request.body;
-     const result = createSpecifications({id,name,description})
+     const result = await createSpecifications({id,name,description})
 
      if(result.error){
         response.status(409).json({ error: result.error });
@@ -15,8 +15,8 @@ export function createSpecificationsController(request:Request,response:Response
      return;
 
 }
-export function listSpecifications(request:Request,response:Response):void{
-    const specifications = listSpecification();
+export async function  listSpecifications(request:Request,response:Response):Promise<void>{
+    const specifications = await listSpecification();
     response.json(specifications)
     return;
 }

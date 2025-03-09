@@ -13,7 +13,7 @@ services:
     depends_on:
       - postgres
     environment:
-      DATABASE_URL: "postgresql://root:root@postgres:5432/storedb"
+      DATABASE_URL: "postgresql://root:root@postgres:5432/store"
 
   postgres:
     image: postgres:latest

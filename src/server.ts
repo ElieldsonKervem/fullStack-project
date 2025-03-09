@@ -5,6 +5,9 @@ const app = express();
 const port: number = 3002;
 import {router} from './routes/index'
 
+import dotenv from 'dotenv';
+dotenv.config();
+
 app.use("/api-docs",swaggerUi.serve,swaggerUi.setup(
     swaggerFile
 ))
